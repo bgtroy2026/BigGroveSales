@@ -4,18 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Big Grove Brewery — Sales Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--green:#1e5c3a;--green2:#2e8b57;--amber:#e8a020;--red:#c0392b;--bg:#f4f5f2;--card:#fff;--ink:#1c2420;--mut:#68746d;--line:#e3e6e0}
+:root{--green:#1b2449;--green2:#6d8f22;--amber:#e8a020;--red:#c0392b;--bg:#f3f4f7;--card:#fff;--ink:#22283f;--mut:#6b7288;--line:#e0e2ea}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+body{font-family:'Brandon Grotesque','Brandon Text','Josefin Sans','Avenir Next',Avenir,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink)}
 header{background:var(--green);color:#fff;padding:18px 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
-header h1{font-size:20px}
-header .sub{color:#cfe3d6;font-size:12px}
+header h1{font-size:20px;font-weight:700;letter-spacing:.02em}
+header .sub{color:#c3c9de;font-size:12px}
 .wrap{max-width:1320px;margin:0 auto;padding:20px 28px 60px}
 h2{font-size:13px;font-weight:700;margin:26px 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.06em}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:16px}
 .kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 15px;cursor:default}
-.kpi:hover{border-color:var(--green2);box-shadow:0 2px 8px rgba(30,92,58,.12)}
+.kpi:hover{border-color:var(--green2);box-shadow:0 2px 8px rgba(27,36,73,.14)}
 .kpi .lbl{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
 .kpi .val{font-size:23px;font-weight:800;margin-top:3px}
 .kpi .delta{font-size:12px;font-weight:600;margin-top:2px}
@@ -29,20 +30,25 @@ h2{font-size:13px;font-weight:700;margin:26px 0 10px;color:var(--green);text-tra
 svg{display:block;width:100%}
 svg text{pointer-events:none}
 [data-tip]{cursor:default}
-rect[data-tip]:hover,path[data-tip]:hover,circle[data-tip]:hover{opacity:.82;stroke:#1c2420;stroke-width:.7}
-#tip{position:fixed;z-index:99;pointer-events:none;background:#20302a;color:#f2f5f2;border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.5;max-width:320px;box-shadow:0 6px 20px rgba(0,0,0,.25);display:none}
-#tip b{color:#ffd47f}
+rect[data-tip]:hover,path[data-tip]:hover,circle[data-tip]:hover{opacity:.82;stroke:#22283f;stroke-width:.7}
+#tip{position:fixed;z-index:99;pointer-events:none;background:#171e3a;color:#f1f2f6;border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.5;max-width:320px;box-shadow:0 6px 20px rgba(0,0,0,.25);display:none}
+#tip.big{max-width:480px;font-size:12.5px;padding:12px 15px}
+#tip table{border-collapse:collapse;margin-top:6px;width:100%}
+#tip th{color:#9aa3c0;font-weight:600;font-size:10.5px;text-align:right;padding:1px 0 3px 12px;border:none;text-transform:uppercase;letter-spacing:.03em}
+#tip th:first-child,#tip td:first-child{text-align:left;padding-left:0}
+#tip td{padding:1px 0 1px 12px;border:none;border-top:1px solid #39405e;text-align:right;white-space:nowrap;font-size:11.5px}
+#tip b{color:#cfe38a}
 #tip .tt{font-size:13px;color:#fff;font-weight:700;margin-bottom:3px}
-#tip .up{color:#7fd8a4}#tip .dn{color:#ff9d8a}
+#tip .up{color:#b8d95e}#tip .dn{color:#ff9d8a}
 table{width:100%;border-collapse:collapse;font-size:12.5px}
 th{text-align:left;color:var(--mut);font-weight:600;padding:7px 9px;border-bottom:2px solid var(--line);cursor:pointer;white-space:nowrap;user-select:none}
 th.num,td.num{text-align:right}
 th:hover{color:var(--green)}
 td{padding:6px 9px;border-bottom:1px solid var(--line);white-space:nowrap}
-tr[data-tip]:hover td{background:#eef6f0}
+tr[data-tip]:hover td{background:#f0f2e6}
 .badge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700}
-.b-new{background:#e3f2e8;color:#1e5c3a}.b-lost{background:#fbe4e0;color:#c0392b}
-.b-grow{background:#eaf6ee;color:#2e8b57}.b-decl{background:#fdf1e2;color:#b06d0a}.b-steady{background:#eef0ed;color:#68746d}
+.b-new{background:#eef3dd;color:#1b2449}.b-lost{background:#fbe4e0;color:#c0392b}
+.b-grow{background:#f2f6e2;color:#6d8f22}.b-decl{background:#fdf1e2;color:#b06d0a}.b-steady{background:#eef0ed;color:#6b7288}
 .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .controls input,.controls select{padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:12.5px;background:#fff;color:var(--ink);max-width:180px}
 .controls input{flex:1;min-width:170px;max-width:none}
@@ -70,13 +76,13 @@ tr[data-tip]:hover td{background:#eef6f0}
 
 <h2>Distributor Map <span style="color:var(--mut);font-weight:400;text-transform:none">— size = H1 ’26 volume, color = YoY</span></h2>
 <div class="card"><div id="chTree"></div>
-<div class="legend"><span><span class="sw" style="background:#b83a2a"></span>≤ −25%</span><span><span class="sw" style="background:#d98a5f"></span>−10%</span><span><span class="sw" style="background:#c9cec9"></span>0%</span><span><span class="sw" style="background:#79b98f"></span>+10%</span><span><span class="sw" style="background:#1e5c3a"></span>≥ +25%</span></div></div>
+<div class="legend"><span><span class="sw" style="background:#b83a2a"></span>≤ −25%</span><span><span class="sw" style="background:#d08a7e"></span>−10%</span><span><span class="sw" style="background:#c8ccd8"></span>0%</span><span><span class="sw" style="background:#bccf8a"></span>+10%</span><span><span class="sw" style="background:#94bb36"></span>≥ +25%</span></div></div>
 
 <div class="grid32" style="margin-top:16px">
   <div class="card"><h3>Channels — H1 ’26 vs ’25</h3><div id="chChannel"></div></div>
   <div class="card"><h3>States &amp; Premise</h3><div id="chState"></div>
     <div style="display:flex;gap:18px;align-items:center;justify-content:center;margin-top:12px"><div id="chPrem" style="width:140px"></div>
-    <div class="legend" style="flex-direction:column;align-items:flex-start;gap:6px;margin-top:0"><span><span class="sw" style="background:#1e5c3a"></span>On-premise</span><span><span class="sw" style="background:#e8a020"></span>Off-premise</span></div></div>
+    <div class="legend" style="flex-direction:column;align-items:flex-start;gap:6px;margin-top:0"><span><span class="sw" style="background:#1b2449"></span>On-premise</span><span><span class="sw" style="background:#94bb36"></span>Off-premise</span></div></div>
     <div class="cap">Hover a state bar for its YoY, net sales and account status mix.</div>
   </div>
 </div>
@@ -99,7 +105,7 @@ tr[data-tip]:hover td{background:#eef6f0}
 <h2>Chain Whitespace <span style="color:var(--mut);font-weight:400;text-transform:none">— selling vs non-selling stores across the malt-licensed chain universe (matched by VIP ID)</span></h2>
 <div class="grid32">
   <div class="card"><h3>Store Penetration by State</h3><div id="chChainState"></div>
-  <div class="legend"><span><span class="sw" style="background:#1e5c3a"></span>Selling</span><span><span class="sw" style="background:#e8a020"></span>Lapsed (bought ’25, not ’26)</span><span><span class="sw" style="background:#e0e4df"></span>Not selling</span></div></div>
+  <div class="legend"><span><span class="sw" style="background:#1b2449"></span>Selling</span><span><span class="sw" style="background:#e8a020"></span>Lapsed (bought ’25, not ’26)</span><span><span class="sw" style="background:#e3e5ec"></span>Not selling</span></div></div>
   <div class="card"><h3>Universe at a Glance</h3><div class="kpis" id="chainKpis" style="grid-template-columns:1fr 1fr;margin-top:4px"></div>
   <div class="cap">Universe = active chain-store outlets licensed for malt (VIP file). Independents not included. Selling = bought in H1 ’26, matched by VIP ID. Excluded per request: Dollar General, Aldi, CVS, Family Dollar, Menards, and the hotel/motel, military, e-commerce and unassigned channels.</div></div>
 </div>
@@ -134,7 +140,7 @@ function sec(fn){try{fn()}catch(e){console.error(e)}}
 // tooltip
 const tip=document.getElementById('tip');
 document.addEventListener('mouseover',e=>{const el=e.target.closest('[data-tip]');
- if(el){tip.innerHTML=el.getAttribute('data-tip');tip.style.display='block';}else tip.style.display='none';});
+ if(el){tip.innerHTML=el.getAttribute('data-tip');tip.className=el.getAttribute('data-big')?'big':'';tip.style.display='block';}else tip.style.display='none';});
 document.addEventListener('mousemove',e=>{if(tip.style.display==='none')return;
  const w=tip.offsetWidth,h=tip.offsetHeight;
  let x=e.clientX+14,y=e.clientY+14;
@@ -158,16 +164,42 @@ const stArr=[...byState].map(([k,a])=>({name:k,...a})).filter(s=>s.name!=='?').s
 
 // KPIs
 sec(()=>{
+// extended per-state aggregates for KPI drill-downs
+const SX={};
+for(const r of R){const k=r[5];if(k==='?')continue;
+ const a=SX[k]||(SX[k]={ce26:0,ce25:0,r26:0,r25:0,buy26:0,buy25:0,nw:0,lo:0,nwCE:0,loCE:0});
+ a.ce26+=r[6];a.ce25+=r[8];a.r26+=r[7];a.r25+=r[9];
+ if(r[6]>0)a.buy26++;if(r[8]>0)a.buy25++;
+ const st=status(r);
+ if(st==='new'){a.nw++;a.nwCE+=r[6];}
+ if(st==='lost'){a.lo++;a.loCE+=r[8];}}
+const SKEYS=Object.keys(SX).sort((a,b)=>SX[b].ce26-SX[a].ce26);
+const yoyTd=p=>`<td><span class="${cc(p)}">${pctStr(p)}</span></td>`;
+function stTable(cols,row){
+ return `<table><tr><th>State</th>${cols.map(c=>`<th>${c}</th>`).join('')}</tr>`+
+  SKEYS.map(k=>`<tr><td><b style="color:#fff">${k}</b></td>${row(SX[k])}</tr>`).join('')+'</table>';}
 const K=[
- ['H1 Volume',fmt(ce26)+' CE',pct(ce26,ce25),`<div class="tt">H1 2026 volume</div>2026: <b>${fmt(ce26)} CE</b><br>2025: ${fmt(ce25)} CE<br>Δ ${fmt(ce26-ce25)} CE (${pctStr(pct(ce26,ce25))})`],
- ['H1 Net Sales',fmt$(r26),pct(r26,r25),`<div class="tt">H1 2026 net sales (net price)</div>2026: <b>${fmt$(r26)}</b><br>2025: ${fmt$(r25)}<br>Δ ${fmt$(r26-r25)} (${pctStr(pct(r26,r25))})`],
- ['Buying Accounts',fmt(buy26),pct(buy26,buy25),`<div class="tt">Accounts that bought in H1</div>2026: <b>${fmt(buy26)}</b> · 2025: ${fmt(buy25)}<br>+${fmt(buy26-buy25)} net`],
- ['New Buyers',fmt(stat.new),null,`<div class="tt">New buyers</div>Bought in H1 ’26 but not H1 ’25.<br>They add <b>${fmt(R.filter(r=>status(r)==='new').reduce((s,r)=>s+r[6],0))} CE</b> of new volume.`],
- ['Lost Buyers',fmt(stat.lost),null,`<div class="tt">Lost buyers</div>Bought in H1 ’25, nothing in ’26.<br>Volume at risk: <b>${fmt(statCE25.lost)} CE</b> (their ’25 H1).<br>Filter Status = Lost below for the win-back list.`],
- ['$ / CE',fmt$(r26/ce26),pct(r26/ce26,r25/ce25),`<div class="tt">Avg net price per case equiv</div>2026: <b>$${(r26/ce26).toFixed(2)}</b><br>2025: $${(r25/ce25).toFixed(2)}`],
+ ['H1 Volume',fmt(ce26)+' CE',pct(ce26,ce25),
+  `<div class="tt">H1 2026 volume by state</div>2026: <b>${fmt(ce26)} CE</b> · 2025: ${fmt(ce25)} CE · Δ ${fmt(ce26-ce25)} CE (${pctStr(pct(ce26,ce25))})`+
+  stTable(['CE ’26','CE ’25','YoY'],a=>`<td>${fmt(a.ce26)}</td><td>${fmt(a.ce25)}</td>${yoyTd(pct(a.ce26,a.ce25))}`)],
+ ['H1 Net Sales',fmt$(r26),pct(r26,r25),
+  `<div class="tt">H1 2026 net sales by state</div>2026: <b>${fmt$(r26)}</b> · 2025: ${fmt$(r25)} · Δ ${fmt$(r26-r25)} (${pctStr(pct(r26,r25))})`+
+  stTable(['’26','’25','YoY'],a=>`<td>${fmt$(a.r26)}</td><td>${fmt$(a.r25)}</td>${yoyTd(pct(a.r26,a.r25))}`)],
+ ['Buying Accounts',fmt(buy26),pct(buy26,buy25),
+  `<div class="tt">Accounts that bought in H1, by state</div>2026: <b>${fmt(buy26)}</b> · 2025: ${fmt(buy25)} · +${fmt(buy26-buy25)} net`+
+  stTable(['’26','’25','Δ'],a=>`<td>${fmt(a.buy26)}</td><td>${fmt(a.buy25)}</td><td><span class="${a.buy26>=a.buy25?'up':'dn'}">${a.buy26>=a.buy25?'+':''}${fmt(a.buy26-a.buy25)}</span></td>`)],
+ ['New Buyers',fmt(stat.new),null,
+  `<div class="tt">New buyers by state</div>Bought in H1 ’26 but not H1 ’25 — adding <b>${fmt(R.filter(r=>status(r)==='new').reduce((s,r)=>s+r[6],0))} CE</b> of new volume.`+
+  stTable(['New accts','CE added','% of state vol'],a=>`<td>${fmt(a.nw)}</td><td>${fmt(a.nwCE)}</td><td>${a.ce26>0?(a.nwCE/a.ce26*100).toFixed(1)+'%':'—'}</td>`)],
+ ['Lost Buyers',fmt(stat.lost),null,
+  `<div class="tt">Lost buyers by state</div>Bought in H1 ’25, nothing in ’26 — <b>${fmt(statCE25.lost)} CE</b> at risk. Filter Status = Lost in the Account Explorer for the win-back list.`+
+  stTable(['Lost accts','CE at risk','% of ’25 vol'],a=>`<td>${fmt(a.lo)}</td><td>${fmt(a.loCE)}</td><td>${a.ce25>0?(a.loCE/a.ce25*100).toFixed(1)+'%':'—'}</td>`)],
+ ['$ / CE',fmt$(r26/ce26),pct(r26/ce26,r25/ce25),
+  `<div class="tt">Avg net price per case equiv, by state</div>2026: <b>$${(r26/ce26).toFixed(2)}</b> · 2025: $${(r25/ce25).toFixed(2)}`+
+  stTable(['’26','’25','YoY'],a=>`<td>${a.ce26>0?'$'+(a.r26/a.ce26).toFixed(2):'—'}</td><td>${a.ce25>0?'$'+(a.r25/a.ce25).toFixed(2):'—'}</td>${a.ce26>0&&a.ce25>0?yoyTd(pct(a.r26/a.ce26,a.r25/a.ce25)):'<td>—</td>'}`)],
 ];
 document.getElementById('kpis').innerHTML=K.map(([l,v,p,t])=>
- `<div class="kpi" data-tip="${q(t)}"><div class="lbl">${l}</div><div class="val">${v}</div><div class="delta ${cc(p)}">${p===null?'H1 ’26':pctStr(p)+' YoY'}</div></div>`).join('');
+ `<div class="kpi" data-tip="${q(t)}" data-big="1"><div class="lbl">${l}</div><div class="val">${v}</div><div class="delta ${cc(p)}">${p===null?'H1 ’26':pctStr(p)+' YoY'}</div></div>`).join('');
 });
 
 // monthly bars
@@ -177,25 +209,25 @@ const MN=['Jan','Feb','Mar','Apr','May','Jun'];
 let s=`<svg viewBox="0 0 ${W} ${H+24}">`;
 mon.forEach((v,i)=>{const x=i*W/6+(W/6-bw)/2,h=v/max*H,y=H-h;
  const t=`<div class="tt">${MN[i]} 2026</div>Volume: <b>${fmt(v)} CE</b><br>Net sales: <b>${fmt$(MREV[i])}</b><br>$/CE: $${(MREV[i]/v).toFixed(2)}<br>Share of H1: ${(v/ce26*100).toFixed(1)}%`;
- s+=`<rect x="${x}" y="${y}" width="${bw}" height="${h}" rx="4" fill="#2e8b57" data-tip="${q(t)}"/>
- <text x="${x+bw/2}" y="${y-6}" text-anchor="middle" font-size="11" font-weight="700" fill="#1e5c3a">${fmt(v/1000)}k</text>
- <text x="${x+bw/2}" y="${H+16}" text-anchor="middle" font-size="11" fill="#68746d">${MN[i]}</text>`;});
+ s+=`<rect x="${x}" y="${y}" width="${bw}" height="${h}" rx="4" fill="#1b2449" data-tip="${q(t)}"/>
+ <text x="${x+bw/2}" y="${y-6}" text-anchor="middle" font-size="11" font-weight="700" fill="#1b2449">${fmt(v/1000)}k</text>
+ <text x="${x+bw/2}" y="${H+16}" text-anchor="middle" font-size="11" fill="#6b7288">${MN[i]}</text>`;});
 s+='</svg>';document.getElementById('chMonth').innerHTML=s;
 });
 
 // annual trajectory
 sec(()=>{
 const pace=ce26/ce25*fy25;
-const bars=[['FY 2024',fy24,'#9db8a8',`<div class="tt">Full year 2024</div><b>${fmt(fy24)} CE</b>`],
- ['FY 2025',fy25,'#5f8f75',`<div class="tt">Full year 2025</div><b>${fmt(fy25)} CE</b><br>${pctStr(pct(fy25,fy24))} vs 2024`],
- ['’26 H1',ce26,'#1e5c3a',`<div class="tt">2026 first half (actual)</div><b>${fmt(ce26)} CE</b><br>${pctStr(pct(ce26,ce25))} vs H1 ’25`],
+const bars=[['FY 2024',fy24,'#b9bfce',`<div class="tt">Full year 2024</div><b>${fmt(fy24)} CE</b>`],
+ ['FY 2025',fy25,'#5a628a',`<div class="tt">Full year 2025</div><b>${fmt(fy25)} CE</b><br>${pctStr(pct(fy25,fy24))} vs 2024`],
+ ['’26 H1',ce26,'#1b2449',`<div class="tt">2026 first half (actual)</div><b>${fmt(ce26)} CE</b><br>${pctStr(pct(ce26,ce25))} vs H1 ’25`],
  ['’26 pace',pace,'#e8a020',`<div class="tt">2026 full-year pace</div>FY ’25 scaled by current YoY growth:<br><b>≈ ${fmt(pace)} CE</b> (${pctStr(pct(pace,fy25))} vs FY ’25)`]];
 const W=560,H=210,max=Math.max(...bars.map(b=>b[1]))*1.12,bw=W/4*.6;
 let s=`<svg viewBox="0 0 ${W} ${H+24}">`;
 bars.forEach((b,i)=>{const x=i*W/4+(W/4-bw)/2,h=b[1]/max*H,y=H-h;
  s+=`<rect x="${x}" y="${y}" width="${bw}" height="${h}" rx="4" fill="${b[2]}" data-tip="${q(b[3])}"/>
- <text x="${x+bw/2}" y="${y-6}" text-anchor="middle" font-size="11" font-weight="700" fill="#1c2420">${fmt(b[1]/1000)}k</text>
- <text x="${x+bw/2}" y="${H+16}" text-anchor="middle" font-size="11" fill="#68746d">${b[0]}</text>`;});
+ <text x="${x+bw/2}" y="${y-6}" text-anchor="middle" font-size="11" font-weight="700" fill="#22283f">${fmt(b[1]/1000)}k</text>
+ <text x="${x+bw/2}" y="${H+16}" text-anchor="middle" font-size="11" fill="#6b7288">${b[0]}</text>`;});
 s+='</svg>';document.getElementById('chYear').innerHTML=s;
 document.getElementById('paceCap').textContent='Pace = FY ’25 × current H1 growth rate.';
 });
@@ -205,7 +237,7 @@ sec(()=>{
 function yoyColor(p){if(p===null)p=0;const t=Math.max(-1,Math.min(1,p/25));
  const lerp=(a,b,u)=>Math.round(a+(b-a)*u);
  let c1,c2,u;
- if(t<0){c1=[201,206,201];c2=[184,58,42];u=-t}else{c1=[201,206,201];c2=[30,92,58];u=t}
+ if(t<0){c1=[200,204,214];c2=[184,58,42];u=-t}else{c1=[200,204,214];c2=[148,187,54];u=t}
  return `rgb(${lerp(c1[0],c2[0],u)},${lerp(c1[1],c2[1],u)},${lerp(c1[2],c2[2],u)})`;}
 const items=distArr.filter(d=>d.ce26>0).map(d=>({...d,v:d.ce26,yoy:pct(d.ce26,d.ce25)}));
 const W=1240,H=460;let rects=[];
@@ -233,9 +265,9 @@ for(const r of rects){
  s+=`<rect x="${r.x+1}" y="${r.y+1}" width="${Math.max(0,r.w-2)}" height="${Math.max(0,r.h-2)}" rx="3" fill="${yoyColor(r.yoy)}" data-tip="${q(t)}"/>`;
  if(r.w>78&&r.h>30){
   const nm=r.name.split(' - ')[0].slice(0,Math.floor(r.w/7.5));
-  const light=r.yoy!==null&&Math.abs(r.yoy)>12;
-  s+=`<text x="${r.x+8}" y="${r.y+18}" font-size="12" font-weight="700" fill="${light?'#fff':'#1c2420'}">${nm}</text>`;
-  if(r.h>46)s+=`<text x="${r.x+8}" y="${r.y+33}" font-size="10.5" fill="${light?'rgba(255,255,255,.85)':'#404a44'}">${fmt(r.ce26)} CE · ${pctStr(r.yoy)}</text>`;}}
+  const light=r.yoy!==null&&r.yoy<-12;
+  s+=`<text x="${r.x+8}" y="${r.y+18}" font-size="12" font-weight="700" fill="${light?'#fff':'#22283f'}">${nm}</text>`;
+  if(r.h>46)s+=`<text x="${r.x+8}" y="${r.y+33}" font-size="10.5" fill="${light?'rgba(255,255,255,.85)':'#2c3350'}">${fmt(r.ce26)} CE · ${pctStr(r.yoy)}</text>`;}}
 s+='</svg>';document.getElementById('chTree').innerHTML=s;
 });
 
@@ -245,17 +277,17 @@ const top=clsArr.slice(0,10),W=700,rowH=34,LW=170,max=Math.max(...top.map(c=>c.c
 let s=`<svg viewBox="0 0 ${W} ${top.length*rowH}">`;
 top.forEach((c,i)=>{const y=i*rowH,bw26=c.ce26/max*(W-LW-70),bw25=c.ce25/max*(W-LW-70),p=pct(c.ce26,c.ce25);
  const t=`<div class="tt">${c.name}</div>H1 ’26: <b>${fmt(c.ce26)} CE</b> (${(c.ce26/ce26*100).toFixed(1)}% of volume)<br>H1 ’25: ${fmt(c.ce25)} CE · YoY <span class="${cc(p)}">${pctStr(p)}</span><br>Net sales: ${fmt$(c.r26)}<br>Accounts: ${fmt(c.acct)} · buying ’26: ${fmt(c.buy)}<br>New: ${c.nw} · Lost: ${c.lo}`;
- s+=`<text x="${LW-8}" y="${y+15}" text-anchor="end" font-size="11" fill="#404a44">${c.name.length>24?c.name.slice(0,23)+'…':c.name}</text>
- <rect x="${LW}" y="${y+3}" width="${bw25}" height="9" rx="2" fill="#c9d8cf" data-tip="${q(t)}"/>
- <rect x="${LW}" y="${y+14}" width="${bw26}" height="11" rx="2" fill="#1e5c3a" data-tip="${q(t)}"/>
- <text x="${LW+Math.max(bw26,bw25)+6}" y="${y+22}" font-size="10.5" font-weight="700" fill="${p>=0?'#2e8b57':'#c0392b'}">${pctStr(p)}</text>`;});
+ s+=`<text x="${LW-8}" y="${y+15}" text-anchor="end" font-size="11" fill="#3a4160">${c.name.length>24?c.name.slice(0,23)+'…':c.name}</text>
+ <rect x="${LW}" y="${y+3}" width="${bw25}" height="9" rx="2" fill="#c6cbd9" data-tip="${q(t)}"/>
+ <rect x="${LW}" y="${y+14}" width="${bw26}" height="11" rx="2" fill="#1b2449" data-tip="${q(t)}"/>
+ <text x="${LW+Math.max(bw26,bw25)+6}" y="${y+22}" font-size="10.5" font-weight="700" fill="${p>=0?'#6d8f22':'#c0392b'}">${pctStr(p)}</text>`;});
 s+='</svg>';document.getElementById('chChannel').innerHTML=s;
 });
 
 // state bars + premise donut
 sec(()=>{
 // per-state account status mix
-const SC={new:'#2e8b57',grow:'#79b98f',steady:'#c9cec9',decl:'#e8a020',lost:'#c0392b'};
+const SC={new:'#6d8f22',grow:'#94bb36',steady:'#c6cbd9',decl:'#e8a020',lost:'#c0392b'};
 const SORD=['new','grow','steady','decl','lost'];
 const stStat={},stPrem={};
 for(const r of R){const k=r[5];if(!stStat[k])stStat[k]={new:0,grow:0,steady:0,decl:0,lost:0};stStat[k][status(r)]++;
@@ -263,21 +295,21 @@ for(const r of R){const k=r[5];if(!stStat[k])stStat[k]={new:0,grow:0,steady:0,de
 function premMix(k){const m=stPrem[k];if(!m)return'';
  const tot=m[0]+m[1];if(tot<=0)return'';
  const w=m[0]/tot*240;
- return `<br><span style="color:#9fb3a8">On vs off premise (CE):</span><svg width="240" height="14" viewBox="0 0 240 14" style="margin-top:4px"><rect x="0" y="2" width="${Math.max(0,w-1)}" height="10" rx="2" fill="#1e5c3a"/><rect x="${w}" y="2" width="${Math.max(0,240-w-1)}" height="10" rx="2" fill="#e8a020"/></svg><span style="font-size:10.5px">On ${fmt(m[0])} CE (${(m[0]/tot*100).toFixed(0)}%) · Off ${fmt(m[1])} CE (${(m[1]/tot*100).toFixed(0)}%)</span>`;}
+ return `<br><span style="color:#9aa3c0">On vs off premise (CE):</span><svg width="240" height="14" viewBox="0 0 240 14" style="margin-top:4px"><rect x="0" y="2" width="${Math.max(0,w-1)}" height="10" rx="2" fill="#1b2449"/><rect x="${w}" y="2" width="${Math.max(0,240-w-1)}" height="10" rx="2" fill="#94bb36"/></svg><span style="font-size:10.5px">On ${fmt(m[0])} CE (${(m[0]/tot*100).toFixed(0)}%) · Off ${fmt(m[1])} CE (${(m[1]/tot*100).toFixed(0)}%)</span>`;}
 function statMix(k){const m=stStat[k];if(!m)return'';
  const n=SORD.reduce((s,x)=>s+m[x],0);let x=0;
  let bar=`<svg width="240" height="14" viewBox="0 0 240 14" style="margin-top:4px">`;
  SORD.forEach(s2=>{const w=m[s2]/n*240;bar+=`<rect x="${x}" y="2" width="${Math.max(0,w-1)}" height="10" rx="2" fill="${SC[s2]}"/>`;x+=w;});
  bar+='</svg>';
- return `<br><span style="color:#9fb3a8">Status mix (${fmt(n)} accts):</span>${bar}<span style="font-size:10.5px">New ${m.new} · <span class="up">Grow ${m.grow}</span> · Steady ${m.steady} · Decl ${m.decl} · <span class="dn">Lost ${m.lost}</span></span>`;}
+ return `<br><span style="color:#9aa3c0">Status mix (${fmt(n)} accts):</span>${bar}<span style="font-size:10.5px">New ${m.new} · <span class="up">Grow ${m.grow}</span> · Steady ${m.steady} · Decl ${m.decl} · <span class="dn">Lost ${m.lost}</span></span>`;}
 const W=430,rowH=30,LW=36,max=Math.max(...stArr.map(s=>s.ce26))*1.05;
 let s=`<svg viewBox="0 0 ${W} ${stArr.length*rowH}">`;
 stArr.forEach((st,i)=>{const y=i*rowH,b26=st.ce26/max*(W-LW-64),b25=st.ce25/max*(W-LW-64),p=pct(st.ce26,st.ce25);
  const t=`<div class="tt">${st.name}</div>H1 ’26: <b>${fmt(st.ce26)} CE</b> (${(st.ce26/ce26*100).toFixed(1)}%)<br>H1 ’25: ${fmt(st.ce25)} CE · YoY <span class="${cc(p)}">${pctStr(p)}</span><br>Net sales: ${fmt$(st.r26)}${premMix(st.name)}${statMix(st.name)}`;
- s+=`<text x="${LW-6}" y="${y+15}" text-anchor="end" font-size="11" font-weight="700" fill="#404a44">${st.name}</text>
- <rect x="${LW}" y="${y+2}" width="${b25}" height="8" rx="2" fill="#c9d8cf" data-tip="${q(t)}"/>
- <rect x="${LW}" y="${y+12}" width="${b26}" height="10" rx="2" fill="#1e5c3a" data-tip="${q(t)}"/>
- <text x="${LW+Math.max(b26,b25)+5}" y="${y+19}" font-size="10" font-weight="700" fill="${p>=0?'#2e8b57':'#c0392b'}">${pctStr(p)}</text>`;});
+ s+=`<text x="${LW-6}" y="${y+15}" text-anchor="end" font-size="11" font-weight="700" fill="#3a4160">${st.name}</text>
+ <rect x="${LW}" y="${y+2}" width="${b25}" height="8" rx="2" fill="#c6cbd9" data-tip="${q(t)}"/>
+ <rect x="${LW}" y="${y+12}" width="${b26}" height="10" rx="2" fill="#1b2449" data-tip="${q(t)}"/>
+ <text x="${LW+Math.max(b26,b25)+5}" y="${y+19}" font-size="10" font-weight="700" fill="${p>=0?'#6d8f22':'#c0392b'}">${pctStr(p)}</text>`;});
 s+='</svg>';document.getElementById('chState').innerHTML=s;
 // premise donut
 const on=byPrem.get(0)||{ce26:0,ce25:0,r26:0,buy:0},off=byPrem.get(1)||{ce26:0,ce25:0,r26:0,buy:0};
@@ -289,10 +321,10 @@ const aOn=on.ce26/tot*2*Math.PI;
 const tOn=`<div class="tt">On-premise (bars, restaurants…)</div><b>${fmt(on.ce26)} CE</b> · ${(on.ce26/tot*100).toFixed(0)}% of volume<br>YoY <span class="${cc(pct(on.ce26,on.ce25))}">${pctStr(pct(on.ce26,on.ce25))}</span> · ${fmt$(on.r26)}<br>${fmt(on.buy)} buying accounts`;
 const tOff=`<div class="tt">Off-premise (retail)</div><b>${fmt(off.ce26)} CE</b> · ${(off.ce26/tot*100).toFixed(0)}% of volume<br>YoY <span class="${cc(pct(off.ce26,off.ce25))}">${pctStr(pct(off.ce26,off.ce25))}</span> · ${fmt$(off.r26)}<br>${fmt(off.buy)} buying accounts`;
 document.getElementById('chPrem').innerHTML=`<svg viewBox="0 0 130 130">
-<path d="${arc(0.001,aOn)}" fill="#1e5c3a" data-tip="${q(tOn)}"/>
-<path d="${arc(aOn,2*Math.PI-0.001)}" fill="#e8a020" data-tip="${q(tOff)}"/>
-<text x="65" y="62" text-anchor="middle" font-size="15" font-weight="800" fill="#1c2420">${(on.ce26/tot*100).toFixed(0)}%</text>
-<text x="65" y="76" text-anchor="middle" font-size="9" fill="#68746d">ON-PREM</text></svg>`;
+<path d="${arc(0.001,aOn)}" fill="#1b2449" data-tip="${q(tOn)}"/>
+<path d="${arc(aOn,2*Math.PI-0.001)}" fill="#94bb36" data-tip="${q(tOff)}"/>
+<text x="65" y="62" text-anchor="middle" font-size="15" font-weight="800" fill="#22283f">${(on.ce26/tot*100).toFixed(0)}%</text>
+<text x="65" y="76" text-anchor="middle" font-size="9" fill="#6b7288">ON-PREM</text></svg>`;
 });
 
 // ===== chain whitespace =====
@@ -317,29 +349,29 @@ let s=`<svg viewBox="0 0 ${W} ${STS.length*rowH}">`;
 const order=[...STS].sort((a,b)=>stT[b][0]-stT[a][0]);
 order.forEach((k,i)=>{const[st,sl,lp,ce,pot]=stT[k],y=i*rowH,sc=(W-LW-90)/max;
  const t=`<div class="tt">${k} — chain universe</div>Stores: <b>${fmt(st)}</b> · selling: <b>${fmt(sl)}</b> (${(sl/st*100).toFixed(1)}%)<br>Lapsed: ${fmt(lp)} · untapped: ${fmt(st-sl)}<br>H1 ’26 chain volume: <b>${fmt(ce)} CE</b>`;
- s+=`<text x="${LW-6}" y="${y+19}" text-anchor="end" font-size="12" font-weight="700" fill="#404a44">${k}</text>
- <rect x="${LW}" y="${y+6}" width="${st*sc}" height="18" rx="3" fill="#e0e4df" data-tip="${q(t)}"/>
+ s+=`<text x="${LW-6}" y="${y+19}" text-anchor="end" font-size="12" font-weight="700" fill="#3a4160">${k}</text>
+ <rect x="${LW}" y="${y+6}" width="${st*sc}" height="18" rx="3" fill="#e3e5ec" data-tip="${q(t)}"/>
  <rect x="${LW}" y="${y+6}" width="${(sl+lp)*sc}" height="18" rx="3" fill="#e8a020" data-tip="${q(t)}"/>
- <rect x="${LW}" y="${y+6}" width="${sl*sc}" height="18" rx="3" fill="#1e5c3a" data-tip="${q(t)}"/>
- <text x="${LW+st*sc+6}" y="${y+19}" font-size="10.5" fill="#68746d">${fmt(sl)}/${fmt(st)} · ${(sl/st*100).toFixed(0)}%</text>`;});
+ <rect x="${LW}" y="${y+6}" width="${sl*sc}" height="18" rx="3" fill="#1b2449" data-tip="${q(t)}"/>
+ <text x="${LW+st*sc+6}" y="${y+19}" font-size="10.5" fill="#6b7288">${fmt(sl)}/${fmt(st)} · ${(sl/st*100).toFixed(0)}%</text>`;});
 s+='</svg>';document.getElementById('chChainState').innerHTML=s;
 // heatmap: top chains by untapped stores
 const hm=[...chains].sort((a,b)=>(b.stores-b.sell)-(a.stores-a.sell)).slice(0,24);
 const CW=118,RH=26,LW2=210,HW=LW2+STS.length*CW+80;
 let h=`<svg viewBox="0 0 ${HW} ${(hm.length+1)*RH+6}">`;
-STS.forEach((k,j)=>h+=`<text x="${LW2+j*CW+CW/2}" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#404a44">${k}</text>`);
-h+=`<text x="${LW2+STS.length*CW+40}" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#404a44">Untapped</text>`;
-function penColor(p){if(p===null)return '#f2f3f0';
+STS.forEach((k,j)=>h+=`<text x="${LW2+j*CW+CW/2}" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#3a4160">${k}</text>`);
+h+=`<text x="${LW2+STS.length*CW+40}" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#3a4160">Untapped</text>`;
+function penColor(p){if(p===null)return '#f2f3f6';
  const u=Math.min(1,p);const lerp=(a,b)=>Math.round(a+(b-a)*u);
- return `rgb(${lerp(244,30)},${lerp(240,92)},${lerp(235,58)})`;}
+ return `rgb(${lerp(244,27)},${lerp(240,36)},${lerp(235,73)})`;}
 hm.forEach((c,i)=>{const y=(i+1)*RH+4;
- h+=`<text x="${LW2-8}" y="${y+17}" text-anchor="end" font-size="11" fill="#404a44">${c.n.length>30?c.n.slice(0,29)+'…':c.n}</text>`;
+ h+=`<text x="${LW2-8}" y="${y+17}" text-anchor="end" font-size="11" fill="#3a4160">${c.n.length>30?c.n.slice(0,29)+'…':c.n}</text>`;
  STS.forEach((k,j)=>{const a=c.st[k];const x=LW2+j*CW;
-  if(!a||!a[0]){h+=`<rect x="${x+1}" y="${y+1}" width="${CW-2}" height="${RH-2}" rx="3" fill="#f7f8f6"/>`;return;}
+  if(!a||!a[0]){h+=`<rect x="${x+1}" y="${y+1}" width="${CW-2}" height="${RH-2}" rx="3" fill="#f5f6f8"/>`;return;}
   const pen=a[1]/a[0];
   const t=`<div class="tt">${c.n} — ${k}</div>Stores: <b>${a[0]}</b> · selling: <b>${a[1]}</b> (${(pen*100).toFixed(0)}%)${a[2]?` · lapsed: ${a[2]}`:''}<br>Untapped: ${a[0]-a[1]}<br>H1 ’26: <b>${fmt(a[3])} CE</b>`;
   h+=`<rect x="${x+1}" y="${y+1}" width="${CW-2}" height="${RH-2}" rx="3" fill="${penColor(pen)}" data-tip="${q(t)}"/>
-  <text x="${x+CW/2}" y="${y+17}" text-anchor="middle" font-size="10.5" font-weight="600" fill="${pen>.55?'#fff':'#404a44'}">${a[1]}/${a[0]}</text>`;});
+  <text x="${x+CW/2}" y="${y+17}" text-anchor="middle" font-size="10.5" font-weight="600" fill="${pen>.55?'#fff':'#3a4160'}">${a[1]}/${a[0]}</text>`;});
  h+=`<text x="${LW2+STS.length*CW+40}" y="${y+17}" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b06d0a">${fmt(c.stores-c.sell)}</text>`;});
 h+='</svg>';document.getElementById('chHeat').innerHTML=h;
 // chain table
@@ -348,7 +380,7 @@ const penP=c=>c.stores?c.sell/c.stores*100:0;
 function chainTip(c){
  let rows=Object.entries(c.st).sort((a,b)=>b[1][0]-a[1][0]).map(([k,a])=>
   `${k}: ${a[1]}/${a[0]} stores${a[2]?` (+${a[2]} lapsed)`:''} · ${fmt(a[3])} CE`).join('<br>');
- return `<div class="tt">${c.n}</div>${c.c} · ${c.stores} stores in ${Object.keys(c.st).length} state(s)<br>Selling: ${c.sell} · untapped: <b>${c.stores-c.sell}</b>${c.lap?` · lapsed: ${c.lap}`:''}<hr style="border:none;border-top:1px solid #3d4f46;margin:5px 0">${rows}`;}
+ return `<div class="tt">${c.n}</div>${c.c} · ${c.stores} stores in ${Object.keys(c.st).length} state(s)<br>Selling: ${c.sell} · untapped: <b>${c.stores-c.sell}</b>${c.lap?` · lapsed: ${c.lap}`:''}<hr style="border:none;border-top:1px solid #39405e;margin:5px 0">${rows}`;}
 let cSort={k:'sell',dir:-1};
 const cCols=[['n','Chain',0],['c','Channel',0],['stores','Stores',1],['sell','Selling',1],['pen','Pen %',1],['ce26','CE ’26',1],['yoy','YoY',1],['rate2','CE/store',1],['untap','Untapped',1]];
 const cVal={n:c=>c.n,c:c=>c.c,stores:c=>c.stores,sell:c=>c.sell,pen:penP,ce26:c=>c.ce26,
@@ -366,7 +398,7 @@ function renderChains(){
   `<th class="${n?'num':''}" data-k="${k}">${l}${cSort.k===k?(cSort.dir<0?' ▾':' ▴'):''}</th>`).join('')+'</tr>';
  document.querySelector('#chainTable tbody').innerHTML=slice.map(c=>{
   const p=pct(c.ce26,c.ce25),pen=penP(c);
-  return `<tr data-tip="${q(chainTip(c))}"><td><b>${q(c.n)}</b></td><td>${c.c}</td><td class="num">${fmt(c.stores)}</td><td class="num">${fmt(c.sell)}</td><td class="num"><span class="badge" style="background:${pen>=50?'#e3f2e8':pen>0?'#fdf1e2':'#fbe4e0'};color:${pen>=50?'#1e5c3a':pen>0?'#b06d0a':'#c0392b'}">${pen.toFixed(0)}%</span></td><td class="num">${fmt(c.ce26)}</td><td class="num ${cc(p)}">${pctStr(p)}</td><td class="num">${c.sell?fmt(c.ce26/c.sell):'—'}</td><td class="num" style="font-weight:700;color:#b06d0a">${fmt(c.stores-c.sell)}</td></tr>`;}).join('');
+  return `<tr data-tip="${q(chainTip(c))}"><td><b>${q(c.n)}</b></td><td>${c.c}</td><td class="num">${fmt(c.stores)}</td><td class="num">${fmt(c.sell)}</td><td class="num"><span class="badge" style="background:${pen>=50?'#eef3dd':pen>0?'#fdf1e2':'#fbe4e0'};color:${pen>=50?'#1b2449':pen>0?'#b06d0a':'#c0392b'}">${pen.toFixed(0)}%</span></td><td class="num">${fmt(c.ce26)}</td><td class="num ${cc(p)}">${pctStr(p)}</td><td class="num">${c.sell?fmt(c.ce26/c.sell):'—'}</td><td class="num" style="font-weight:700;color:#b06d0a">${fmt(c.stores-c.sell)}</td></tr>`;}).join('');
  document.getElementById('cpageInfo').textContent=`Page ${cpage+1} / ${maxP}`;
  document.getElementById('cmatchInfo').textContent=`${fmt(arr.length)} chains · ${fmt(arr.reduce((s,c)=>s+c.stores-c.sell,0))} untapped stores`;
  document.getElementById('cprev').disabled=cpage===0;
@@ -390,8 +422,8 @@ let page=0,aSort={k:6,dir:-1};const PER=25;
 const aCols=[[3,'Account',0],[0,'Distributor',0],[2,'Channel',0],['status','Status',0],[6,'CE ’26',1],[8,'CE ’25',1],['yoy','YoY',1],[7,'Net Sales ’26',1]];
 function spark(r){const m=r.slice(12,18),mx=Math.max(...m,0.1);
  let p='';m.forEach((v,i)=>{p+=`${8+i*20},${34-v/mx*26} `;});
- let dots='';m.forEach((v,i)=>{dots+=`<circle cx="${8+i*20}" cy="${34-v/mx*26}" r="2" fill="#7fd8a4"/>`;});
- return `<svg width="116" height="40" viewBox="0 0 116 40" style="display:inline-block"><polyline points="${p.trim()}" fill="none" stroke="#7fd8a4" stroke-width="1.5"/>${dots}</svg><br><span style="font-size:10px;color:#9fb3a8">Jan→Jun ’26: ${r.slice(12,18).map(v=>Math.round(v)).join(' · ')} CE</span>`;}
+ let dots='';m.forEach((v,i)=>{dots+=`<circle cx="${8+i*20}" cy="${34-v/mx*26}" r="2" fill="#b8d95e"/>`;});
+ return `<svg width="116" height="40" viewBox="0 0 116 40" style="display:inline-block"><polyline points="${p.trim()}" fill="none" stroke="#b8d95e" stroke-width="1.5"/>${dots}</svg><br><span style="font-size:10px;color:#9aa3c0">Jan→Jun ’26: ${r.slice(12,18).map(v=>Math.round(v)).join(' · ')} CE</span>`;}
 function rowTip(r){const p=pct(r[6],r[8]);
  return `<div class="tt">${r[3]}</div>${r[19]}, ${r[4]}, ${r[5]}<br>${CLS[r[2]]} · ${r[1]===0?'On':'Off'}-premise<br>${DIST[r[0]]}<br>Route: ${RTS[r[18]]||'—'}<br>H1: ${fmt(r[8])} → <b>${fmt(r[6])} CE</b> (${pctStr(p)}) · ${fmt$(r[7])}<br>FY ’24: ${fmt(r[10])} · FY ’25: ${fmt(r[11])} CE<br>${spark(r)}`;}
 function filtered(){
