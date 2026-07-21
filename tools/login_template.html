@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Big Grove Brewery — Sales Portal</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Brandon Grotesque','Josefin Sans','Avenir Next',Avenir,'Segoe UI',sans-serif;background:#1b2449;min-height:100vh;display:flex;align-items:center;justify-content:center;color:#22283f;padding:20px 0}
+.card{background:#fff;border-radius:14px;padding:34px 42px 30px;width:min(400px,calc(100vw - 40px));box-shadow:0 20px 60px rgba(0,0,0,.4);text-align:center}
+h1{font-size:19px;color:#1b2449;margin-bottom:4px}
+.sub{font-size:12.5px;color:#6b7288;margin-bottom:22px}
+input,select{width:100%;padding:12px 14px;border:1.5px solid #e0e2ea;border-radius:10px;font-size:16px;font-family:inherit;text-align:center;letter-spacing:.04em;background:#fff;color:#22283f}
+input+input,select{margin-top:9px}
+input:focus,select:focus{outline:none;border-color:#94bb36}
+button{width:100%;margin-top:12px;padding:12px;border:none;border-radius:10px;background:#94bb36;color:#1b2449;font-weight:700;font-size:14px;font-family:inherit;cursor:pointer;letter-spacing:.03em}
+button:hover{background:#a3c94a}
+button:disabled{opacity:.6;cursor:default}
+#err{color:#c0392b;font-size:12.5px;margin-top:12px;min-height:16px;font-weight:600}
+#ok{color:#4a7c10;font-size:12.5px;margin-top:12px;font-weight:600}
+.foot{margin-top:18px;font-size:10.5px;color:#9aa3c0;text-transform:uppercase;letter-spacing:.1em}
+.link{display:inline-block;margin-top:16px;font-size:12px;color:#6b7288;text-decoration:underline;cursor:pointer;background:none;border:none;width:auto;padding:0;font-family:inherit;font-weight:600;letter-spacing:0}
+.link:hover{color:#1b2449;background:none}
+.hide{display:none}
+.rq-note{font-size:11.5px;color:#8a90a6;line-height:1.5;margin-bottom:14px}
+textarea{width:100%;padding:11px 13px;border:1.5px solid #e0e2ea;border-radius:10px;font-size:15px;font-family:inherit;margin-top:9px;resize:vertical;min-height:64px}
+textarea:focus{outline:none;border-color:#94bb36}
+</style>
+</head>
+<body>
+<div class="card">
+{LOGO}
+  <h1>Big Grove Brewery</h1>
+
+ <div id="signin">
+  <div class="sub">Sales Portal — sign in</div>
+  <form id="f">
+   <input id="usr" type="text" placeholder="Username" autofocus autocapitalize="none" autocorrect="off" autocomplete="username">
+   <input id="pw" type="password" placeholder="Password" autocomplete="current-password">
+   <button id="go" type="submit">Sign in</button>
+  </form>
+  <div id="err"></div>
+  <button class="link" id="toReq" type="button">Need access? Request an account</button>
+ </div>
+
+ <div id="request" class="hide">
+  <div class="sub">Request access</div>
+  <div class="rq-note">Accounts are created by hand. Send your details and Troy will set you up and email your login.</div>
+  <form id="rf">
+   <input id="rn" type="text" placeholder="Full name" required>
+   <input id="re" type="email" placeholder="Work email" required>
+   <select id="rr">
+    <option value="">What do you need access to?</option>
+    <option>Sales rep — my accounts</option>
+    <option>Sales manager — everything</option>
+    <option>Brewery / operations — inventory &amp; invoices</option>
+    <option>Leadership — read only</option>
+    <option>Other</option>
+   </select>
+   <textarea id="rm" placeholder="Anything else (territory, distributors, who referred you)"></textarea>
+   <button id="rgo" type="submit">Send request</button>
+  </form>
+  <div id="rerr"></div>
+  <button class="link" id="toSign" type="button">← Back to sign in</button>
+ </div>
+
+ <div class="foot">Encrypted · AES-256 · rev {REV}</div>
+</div>
+<script>
+window.onerror=function(msg,src,line){var e=document.getElementById('err');if(e)e.textContent='Error: '+msg+(line?' (line '+line+')':'');return false;};
+if(!window.crypto||!window.crypto.subtle){
+ document.addEventListener('DOMContentLoaded',function(){
+  var e=document.getElementById('err');
+  if(e)e.textContent='This browser blocks the decryption API here. Open the file directly from your computer (double-click it) — not from a preview window — or try Chrome.';
+  var go=document.getElementById('go');if(go)go.disabled=true;});
+}
+{ENC}
+/* ---- user database: each record carries the master key wrapped under that user's own password ---- */
+const USERS={USERS};
+/* Where "Request access" submissions go. Leave "" to fall back to an email draft. */
+const ACCESS_FORM={ACCESS_FORM};
+/* Optional: endpoint that records sign-ins (leave "" to keep sign-in history local only). */
+const LOGIN_PING={LOGIN_PING};
+const ADMIN_EMAIL="troy@biggrovebrewery.com";
+{DATA}
+function ub64(s){const bin=atob(s),a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return a;}
+function b64(a){let s='';const u=new Uint8Array(a);for(let i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s);}
+async function pbkdf2(pw,salt,iter){
+ const km=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);
+ return new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',salt:salt,iterations:iter,hash:'SHA-256'},km,256));}
+async function decryptDoc(rawKey){
+ const key=await crypto.subtle.importKey('raw',rawKey,{name:'AES-GCM'},false,['decrypt']);
+ const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:ub64(ENC.iv)},key,ub64(DATA));
+ return new TextDecoder().decode(pt);}
+/* legacy/master path: the shared password derives the master key directly */
+async function masterKeyFrom(pw){return await pbkdf2(pw,ub64(ENC.salt),ENC.iter);}
+/* user path: password -> user key -> unwrap the master key stored on the record */
+async function userMasterKey(rec,pw){
+ const uk=await pbkdf2(pw,ub64(rec.s),rec.it||300000);
+ const key=await crypto.subtle.importKey('raw',uk,{name:'AES-GCM'},false,['decrypt']);
+ const parts=rec.w.split(':');
+ return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub64(parts[0])},key,ub64(parts[1])));}
+function findUser(u){
+ const k=String(u||'').trim().toLowerCase();
+ if(!k)return null;
+ return USERS.find(r=>r.u.toLowerCase()===k||(r.e||'').toLowerCase()===k)||null;}
+function profileOf(rec){
+ return {u:rec.u,n:rec.n||rec.u,e:rec.e||'',r:rec.r||'viewer',p:rec.p||'*',d:rec.d||'*'};}
+function pingLogin(p){
+ try{
+  const prev=localStorage.getItem('bgb_last_'+p.u)||'';
+  sessionStorage.setItem('bgb_prev_login',prev);
+  localStorage.setItem('bgb_last_'+p.u,new Date().toISOString());
+  if(LOGIN_PING)fetch(LOGIN_PING,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({user:p.u,name:p.n,email:p.e,role:p.r,at:new Date().toISOString(),ua:navigator.userAgent})}).catch(()=>{});
+ }catch(e){}}
+async function enter(rawKey,profile,remember){
+ const html=await decryptDoc(rawKey);
+ try{
+  sessionStorage.setItem('bgb_user',JSON.stringify(profile));
+  if(remember)sessionStorage.setItem('bgb_k',b64(rawKey));
+ }catch(e){}
+ pingLogin(profile);
+ document.open();document.write(html);document.close();}
+async function signIn(user,pw,remember){
+ const go=document.getElementById('go'),err=document.getElementById('err');
+ go.disabled=true;go.textContent='Signing in…';err.textContent='';
+ try{
+  const rec=findUser(user);
+  if(rec){
+   const mk=await userMasterKey(rec,pw);
+   await enter(mk,profileOf(rec),remember);
+   return;
+  }
+  /* master password still works, with or without a username, so you are never locked out */
+  const mk=await masterKeyFrom(pw);
+  await enter(mk,{u:'admin',n:'Administrator',e:ADMIN_EMAIL,r:'admin',p:'*',d:'*'},remember);
+ }catch(e){
+  go.disabled=false;go.textContent='Sign in';
+  err.textContent='Incorrect username or password.';
+  try{sessionStorage.removeItem('bgb_k');sessionStorage.removeItem('bgb_user');}catch(e2){}
+ }}
+/* resume an unlocked session in this tab */
+async function resume(){
+ try{
+  const k=sessionStorage.getItem('bgb_k'),u=sessionStorage.getItem('bgb_user');
+  if(!k||!u)return;
+  const html=await decryptDoc(ub64(k));
+  document.open();document.write(html);document.close();
+ }catch(e){try{sessionStorage.removeItem('bgb_k');}catch(e2){}}}
+document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();
+ signIn(document.getElementById('usr').value,document.getElementById('pw').value,true);});
+/* ---- request access ---- */
+const $=id=>document.getElementById(id);
+$('toReq').addEventListener('click',()=>{$('signin').classList.add('hide');$('request').classList.remove('hide');$('rn').focus();});
+$('toSign').addEventListener('click',()=>{$('request').classList.add('hide');$('signin').classList.remove('hide');$('usr').focus();});
+$('rf').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const b=$('rgo'),msg=$('rerr');
+ const payload={name:$('rn').value.trim(),email:$('re').value.trim(),access:$('rr').value,notes:$('rm').value.trim(),
+   _subject:'Sales Portal access request — '+$('rn').value.trim()};
+ if(!payload.name||!payload.email){msg.textContent='Name and email are required.';return;}
+ b.disabled=true;b.textContent='Sending…';msg.textContent='';
+ if(ACCESS_FORM){
+  try{
+   await fetch(ACCESS_FORM,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)});
+   $('rf').classList.add('hide');
+   msg.style.color='#4a7c10';
+   msg.textContent='Request sent. You will get an email once your account is set up.';
+   return;
+  }catch(err){/* fall through to email */}
+ }
+ const body=encodeURIComponent('Name: '+payload.name+'\nEmail: '+payload.email+'\nAccess needed: '+payload.access+'\nNotes: '+payload.notes);
+ window.location.href='mailto:'+ADMIN_EMAIL+'?subject='+encodeURIComponent(payload._subject)+'&body='+body;
+ b.disabled=false;b.textContent='Send request';
+ msg.style.color='#6b7288';
+ msg.textContent='Opening an email to '+ADMIN_EMAIL+' — press send.';
+});
+resume();
+</script>
+</body>
+</html>

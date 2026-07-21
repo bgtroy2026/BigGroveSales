@@ -1,0 +1,18 @@
+{
+  "access_form": "",
+  "login_ping": "",
+  "users": [
+    {
+      "u": "troy",
+      "n": "Troy Myler",
+      "e": "troy@biggrovebrewery.com",
+      "r": "admin",
+      "p": "*",
+      "d": "*",
+      "s": "/oLMe8lUDwOtMO0Iw6R1Qg==",
+      "it": 300000,
+      "w": "aMIIhMGavnJdwZVx:PMLgzMfjBHN0BYCXuPxvMO/tidW2sU3bJ27YTfs60lPwylFDeTD/ZRbF51nFXbhh",
+      "created": "2026-07-20"
+    }
+  ]
+}
